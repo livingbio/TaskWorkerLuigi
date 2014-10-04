@@ -35,4 +35,4 @@ run sample
 這樣就會把bash/delay ~> 0.0.0.0:1235 上面執行 並等待結果了!!
 localhost:8082 就可以看到local的lugi server
 
-之後 task 寫好後就可以傳Luigi server 用cronjob 去跑了
+之後 task 寫好後就可以傳Luigi server 用cronjob 去跑了(設定一下worker server & remote 的ssh keygen 就可以remote git了~ )
