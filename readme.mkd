@@ -6,11 +6,33 @@
 
 
 
-run
-===
+install
+---
+```
 pip install -r require.txt
-luigid {--address=localhost} {--port=8082} 
+```
 
+run sample 
+---
+ run lugi server
+ ```
+     luigid --address={localhost} --port={8082}
+ ```
+ address & port 的預設值, 沒給就是上述
 
+ run task worker server 
+ ```
+     cd resource/bash
+     python manage.py runserver 0.0.0.0:1235
+ ```
+ 
+ execute
+ ```
+    cd manager/
+    python bash.py
+ ```
 
+這樣就會把bash/delay ~> 0.0.0.0:1235 上面執行 並等待結果了!!
+localhost:8082 就可以看到local的lugi server
 
+之後 task 寫好後就可以傳Luigi server 用cronjob 去跑了
