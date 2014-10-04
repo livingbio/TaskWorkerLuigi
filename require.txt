@@ -1,0 +1,13 @@
+require.txt
+
+:Author: vagrant
+:Email: vagrant@vagrant-ubuntu-trusty-64
+:Date: 2014-10-04 02:34
+
+Tornado 
+pyparsing
+luigi
+requests
+
+.. vim: expandtab filetype=rst shiftwidth=4 tabstop=4
+

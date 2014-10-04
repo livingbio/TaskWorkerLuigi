@@ -1,0 +1,5 @@
+sample shell taskWorker
+===
+
+remote 執行 shell 的worker server
+

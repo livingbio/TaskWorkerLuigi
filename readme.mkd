@@ -1,0 +1,16 @@
+結構
+===
+
+1. manager: task worker, 設定task 的部分
+2. resource: client 處理task
+
+
+
+run
+===
+pip install -r require.txt
+luigid {--address=localhost} {--port=8082} 
+
+
+
+
