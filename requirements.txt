@@ -1,0 +1,5 @@
+Tornado
+pyparsing
+luigi
+requests
+fabric-gce-tools

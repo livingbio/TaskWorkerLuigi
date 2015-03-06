@@ -25,16 +25,16 @@ class ServerError(Exception):
 class TaskController(luigi.Task):
 
     _task_url = None #url which support taskWorker
-    _task_path = None #path where taskWorker here 
+    _task_path = None #path where taskWorker here
     _args = [] # for task args
     _kwargs = {} # for task kwargs
     _files = {} # for task files
     _delay = 30 # check status lantance
     _id = None # custom setting task id
 
-    _retry = 0 #retry times 
+    _retry = 0 #retry times
     _timeout = 0 # time out for sec 0 for unlimit
-     
+
     output_format = "{0.__class__.__name__}"
     key = "tagtoocusps"
     token = ""
@@ -52,7 +52,7 @@ class TaskController(luigi.Task):
 
         args = self.prepare_args(inputs)
         task_id = self.__start_task(args)
-        
+
         for retry_count in xrange(self._retry + 1):
             try:
                 result = self.__watting_task(task_id)
@@ -76,22 +76,22 @@ class TaskController(luigi.Task):
         }
 
         return data
-    
 
-    ## load task 
+
+    ## load task
     def __read_input(self):
         inputs = []
         print 'run'
-        for result in self.input(): 
+        for result in self.input():
             result = result.open('r').read()
             inputs.append(result)
         return inputs
 
-    
+
     ## trigger task
     def __start_task(self, args):
         trigger_api = urlparse.urljoin(self._task_url, TRIGGER) + "?token=" + self.token
-        
+
         args['args'] = json.dumps(args['args'])
         args['kwargs'] = json.dumps(args['kwargs'])
         args['path'] = self._task_path
@@ -102,12 +102,12 @@ class TaskController(luigi.Task):
             resp = requests.post(trigger_api, data=args)
         else:
             resp = requests.post(trigger_api, data=args, files=fs)
-        
+
         task_id = json.loads(resp.content)['id']
         logger.info('start: {}'.format(task_id))
         return task_id
 
-    
+
     ## watting for task end and get task result
     def __watting_task(self, task_id):
         import pdb;pdb.set_trace()
@@ -124,7 +124,7 @@ class TaskController(luigi.Task):
                         raise ServerError()
                     else:
                         raise Exception()
-                
+
 
                 result = resp.content
                 result = json.loads(result)
@@ -179,11 +179,11 @@ class TaskController(luigi.Task):
             import pdb;pdb.set_trace()
 
 
-        
-        
 
 
-# 不需要 reguires 的 task(default 都會去 search)
+
+
+# 不需要 requires 的 task(default 都會去 search)
 class ExternalTaskController(TaskController):
     run = NotImplemented
 
