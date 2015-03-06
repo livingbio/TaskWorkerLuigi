@@ -1,5 +1,5 @@
 import luigi
-from .log2bq import Log2GsTask
+from log2bq import Log2GsTask
 PATH = "/srv/luigi/"
 
 from fabric.api import *
@@ -65,3 +65,6 @@ class ImportItem(luigi.Task):
             with input.open('r') as in_file:
                 filename = in_file.read()
                 execute(import_item, filename)
+
+if __name__ == "__main__":
+    luigi.run()
