@@ -13,21 +13,23 @@ update_roles_gce()
 @roles("spider")
 def collect_item(filename):
     filename = filename.split('/')[-1]
-    with cd("~/ec-spider"):
-        run("python ggspider.py report --filename=%s"%filename)
+    with cd("/srv/ec-spider"):
+        run("python ggspider.py report --filename=%s >& /dev/null" % filename)
 
     return filename + '.items.json'
 
 @roles("dashboard")
 def import_item(filename):
-    with cd("~/dashboard"):
-        run("python import_product.py %s" % filename)
+    filename = filename.split('/')[-1]
+    with cd("/srv/dashboard"):
+        run("python import_product.py %s >& /dev/null" % filename)
 
 
 class CollectItem(luigi.Task):
     hour_time = luigi.DateHourParameter()
 
-    output_format = "{0.__class__.__name__}"
+#    output_format = "{0.__class__.__name__}"
+    output_format = "{0.__class__.__name__}_{0.hour_time:%Y-%m-%d_%H}"
 
     def output(self):
         name = self.output_format.format(self)
@@ -47,7 +49,7 @@ class CollectItem(luigi.Task):
                     item_filename = execute(collect_item, filename)
 
         with self.output().open('w') as out_file:
-            out_file.write(item_filename)
+            out_file.write(filename+'.items.json')
 
 
 class ImportItem(luigi.Task):
@@ -56,7 +58,8 @@ class ImportItem(luigi.Task):
     def requires(self):
         return [CollectItem(hour_time=self.hour_time)]
 
-    output_format = "{0.__class__.__name__}"
+#    output_format = "{0.__class__.__name__}"
+    output_format = "{0.__class__.__name__}_{0.hour_time:%Y-%m-%d_%H}"
 
     def output(self):
         name = self.output_format.format(self)
