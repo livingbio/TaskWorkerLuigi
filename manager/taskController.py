@@ -55,7 +55,7 @@ class TaskController(luigi.Task):
 
         for retry_count in xrange(self._retry + 1):
             try:
-                result = self.__watting_task(task_id)
+                result = self.__waiting_task(task_id)
             except Exception as e:
                 self.__retry_task(args, task_id)
             finally:
@@ -108,8 +108,8 @@ class TaskController(luigi.Task):
         return task_id
 
 
-    ## watting for task end and get task result
-    def __watting_task(self, task_id):
+    ## waiting for task end and get task result
+    def __waiting_task(self, task_id):
         check_status_api = urlparse.urljoin(self._task_url, STATUS)
 
         start_time = datetime.datetime.now()
@@ -133,7 +133,7 @@ class TaskController(luigi.Task):
                 elif status == "failed":
                     raise Exception('failed')
 
-                logger.info('watting {}'.format(task_id))
+                logger.info('waiting {}'.format(task_id))
 
             except ServerError, e:
                 logger.error('server error ')
