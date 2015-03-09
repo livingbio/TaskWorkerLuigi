@@ -110,7 +110,6 @@ class TaskController(luigi.Task):
 
     ## watting for task end and get task result
     def __watting_task(self, task_id):
-        #import pdb;pdb.set_trace()
         check_status_api = urlparse.urljoin(self._task_url, STATUS)
 
         start_time = datetime.datetime.now()
@@ -176,7 +175,8 @@ class TaskController(luigi.Task):
             self.token = info.get('token')
             return self.token
         except Exception as e:
-            import pdb;pdb.set_trace()
+            pass
+
 
 
 
