@@ -5,9 +5,9 @@ PATH = "/srv/luigi/"
 from fabric.api import *
 from fabric_gce_tools import *
 from fabric.context_managers import cd
+import json
 
 env.key_filename = '/.ssh/google_compute_engine'
-
 update_roles_gce()
 
 @roles("spider")
