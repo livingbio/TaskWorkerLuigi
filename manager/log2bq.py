@@ -156,8 +156,8 @@ class ReLoadBq(TaskController):
 
 
     
-
-#luigi.run(main_task_cls=Log2GenReport)
-luigi.run()
+if __name__ == "__main__":
+    #luigi.run(main_task_cls=Log2GenReport)
+    luigi.run()
 
 
