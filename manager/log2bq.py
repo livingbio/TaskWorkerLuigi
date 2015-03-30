@@ -83,6 +83,7 @@ class Log2BqTask(TaskController):
             {'type': 'string', 'name': 'ppb'},
             {'type': 'string', 'name': 'g'},
             {'type': 'string', 'name': 'msg'},
+            {'type': 'string', 'name': 'adgroup'},
         ],
         'overwrite': False,
     }
